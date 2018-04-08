@@ -1,7 +1,3 @@
-
-/**
- * Created by namh on 2016-08-20.
- */
 package com.namh.podopener.frag
 
 import android.app.DownloadManager
@@ -17,59 +13,64 @@ import android.view.View
 import android.view.ViewGroup
 import com.namh.podopener.R
 import com.namh.podopener.downloader.PodBroadcastReceiver
-import com.namh.podopener.frag.FragEcoToday.OnFragmentInteractionListener
+
+/**
+ * Created by namh on 2016-08-20.
+ */
+
 
 /**
  * A simple [Fragment] subclass.
  * Activities that contain this fragment must implement the
  * [OnFragmentInteractionListener] interface
  * to handle interaction events.
- * Use the [FragEcoToday.newInstance] factory method to
+ * Use the [TwoFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class FragEcoToday : Frag(){
+class FragWhatThisMoneyIs : Frag() {
 
 
-    // TODO: Rename and change types of parameters
 
     private var mListener: OnFragmentInteractionListener? = null
-
     private var _rv: RecyclerView? = null
-    private var _lm: RecyclerView.LayoutManager? = null
 
-    ////////////////////////////////////////////////////////////
-    //
-    //
-    //  Overrides
-    //
-    //
-    ////////////////////////////////////////////////////////////
+
 
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
 
         // inflate
-        val view = inflater!!.inflate(R.layout.fragment_ecotoday, container, false)
+        val view = inflater!!.inflate(R.layout.fragment_grabeco, container, false)
 
         _setAppBar(view)
         _setFab(view)
 
-        _rv = view.findViewById(R.id.rv_ecotoday) as RecyclerView
+        _rv = view.findViewById(R.id.rv_grabeco) as RecyclerView
         _setRecyclerView(_rv,
-                        LinearLayoutManager(this.context))
-        _loadPodInfo(url=podUrl,
+                LinearLayoutManager(this.context))
+        _loadPodInfo(url= podUrl,
                 rv=_rv, tag= getPodName())
 
         // Register BroadcastReceiver
         this.context.registerReceiver(PodBroadcastReceiver(),
-                IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE))
-
+                IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
 
         // Inflate the layout for this fragment
         return view
     }
 
+    override fun getPodName(): String{
+        return podName
+
+    }
+
+    // TODO: Rename method, update argument and hook method into UI event
+    fun onButtonPressed(uri: Uri) {
+        if (mListener != null) {
+            mListener!!.onFragWhatThisMoneyIsInteraction(uri)
+        }
+    }
 
     override fun onAttach(context: Context?) {
         super.onAttach(context)
@@ -85,7 +86,6 @@ class FragEcoToday : Frag(){
         mListener = null
     }
 
-
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
@@ -97,42 +97,13 @@ class FragEcoToday : Frag(){
      */
     interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
-        fun onFragEcoTodayInteraction(uri: Uri)
-    }
-
-
-    ////////////////////////////////////////////////////////////
-    //
-    //
-    //  methods
-    //
-    //
-    ////////////////////////////////////////////////////////////
-    override fun getPodName(): String{
-        return podName
-
-    }
-
-    // TODO: Rename method, update argument and hook method into UI event
-    fun onButtonPressed(uri: Uri) {
-        if (mListener != null) {
-            mListener!!.onFragEcoTodayInteraction(uri)
-        }
+        fun onFragWhatThisMoneyIsInteraction(uri: Uri)
     }
 
     companion object {
 
-        ////////////////////////////////////////////////////////////
-        //
-        //
-        //  Start here...
-        //
-        //
-        ////////////////////////////////////////////////////////////
-
-        private val REQUEST_TAG = "FragEcoToday"
-        private val podUrl = "http://enabler.kbs.co.kr/api/podcast_channel/feed.xml?channel_id=R2014-0346"
-        private val podName = "ecotoday"
+        private val podUrl = "http://wizard2.sbs.co.kr/w3/podcast/V2000006789.xml"
+        private val podName = "whatthismoneyis"
 
         /**
          * Use this factory method to create a new instance of
@@ -142,11 +113,11 @@ class FragEcoToday : Frag(){
          * *
          * @param param2 Parameter 2.
          * *
-         * @return A new instance of fragment FragEcoToday.
+         * @return A new instance of fragment TwoFragment.
          */
         // TODO: Rename and change types and number of parameters
-        fun newInstance(param1: String, param2: String): FragEcoToday {
-            val fragment = FragEcoToday()
+        fun newInstance(param1: String, param2: String): FragGrabEco {
+            val fragment = FragGrabEco()
             val args = Bundle()
             args.putString(Frag.ARG_PARAM1, param1)
             args.putString(Frag.ARG_PARAM2, param2)
@@ -154,15 +125,4 @@ class FragEcoToday : Frag(){
             return fragment
         }
     }
-
-    ////////////////////////////////////////////////////////////
-    //
-    //
-    //  Implements
-    //
-    //
-    ////////////////////////////////////////////////////////////
-
-
-
 }// Required empty public constructor

@@ -18,12 +18,14 @@ import android.view.MenuItem;
 import com.namh.podopener.frag.Frag;
 import com.namh.podopener.frag.FragEcoToday;
 import com.namh.podopener.frag.FragGrabEco;
+import com.namh.podopener.frag.FragWhatThisMoneyIs;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
         OneFragment.OnFragmentInteractionListener,
         FragGrabEco.OnFragmentInteractionListener,
-        FragEcoToday.OnFragmentInteractionListener{
+        FragEcoToday.OnFragmentInteractionListener,
+        FragWhatThisMoneyIs.OnFragmentInteractionListener{
 
     private static String TAG = "MainActivity";
 
@@ -134,6 +136,13 @@ public class MainActivity extends AppCompatActivity
 
     }
 
+    @Override
+    public void onFragWhatThisMoneyIsInteraction(Uri uri) {
+
+    }
+
+
+
 
     //-------------------------------------------- NavigationView.OnNavigationItemSelectedListener
     @SuppressWarnings("StatementWithEmptyBody")
@@ -150,8 +159,8 @@ public class MainActivity extends AppCompatActivity
             } else if (id == R.id.nav_ecotoday) {
                 replaceFragment(FragEcoToday.class.newInstance());
 
-            } else if (id == R.id.nav_slideshow) {
-
+            } else if (id == R.id.nav_whatthismoneyis) {
+                replaceFragment(FragWhatThisMoneyIs.class.newInstance());
             } else if (id == R.id.nav_manage) {
 
             } else if (id == R.id.nav_share) {
@@ -181,9 +190,4 @@ public class MainActivity extends AppCompatActivity
             System.exit(1);
         }
     }
-
-
-
-
-
 }
